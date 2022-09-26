@@ -127,8 +127,11 @@ class ProductController extends Controller
                 'error' => $validator->errors()
             ], 422);
         }
-
-        $this->helper->update($request, $request->id, "Product");
+        if($request->hasFile("image_url")){
+            $this->helper->update($request, $request->id, "Product", ['image_url'], true, ['image_url'], './storage/uploads');
+        }else{
+            $this->helper->update($request, $request->id, "Product", ['image_url']);
+        }
 
         return response()->json([
             'message' => "Successfully Updated the product!"
