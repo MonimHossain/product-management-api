@@ -11,6 +11,8 @@ Route::get('/', function () {
     return 'Hey, API is working.';
 });
 
+Route::post('test-upload', [ProductController::class, 'testUpload']);
+
 Route::group(['prefix' => 'user'], function () use ($router) {
     $router->post('/registration', [UserController::class, 'registration']);
     $router->get('/get-user', [UserController::class, 'getUser']);

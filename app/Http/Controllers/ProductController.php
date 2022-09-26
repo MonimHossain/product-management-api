@@ -48,6 +48,8 @@ class ProductController extends Controller
 
             'category_id' => 'required|exists:product_categories,id',
 
+            // 'image_url' => 'mimes:jpeg,jpg,png,gif|sometimes|max:10000'
+
         ]);
 
         if ($validator->fails()) {
@@ -57,7 +59,11 @@ class ProductController extends Controller
             ], 422);
         }
 
-        $this->helper->create($request, 'Product');
+        if($request->hasFile("image_url")){
+            $this->helper->create($request, 'Product', true, ['image_url'], './storage/uploads',['image_url']);
+        }else{
+            $this->helper->create($request, 'Product', '', '', '', ['image_url']);
+        }
 
         return response()->json([
             'message' => "Successfully created product!"
@@ -127,5 +133,10 @@ class ProductController extends Controller
         return response()->json([
             'message' => "Successfully Updated the product!"
         ]);
+    }
+
+    public function testUpload()
+    {
+        return true;
     }
 }

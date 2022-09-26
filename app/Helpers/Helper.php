@@ -84,7 +84,7 @@ class Helper
             if ($request->hasFile($fileInputName) && $request->has($fileInputName)) {
                 $filename = $this->uploadFile($request, $fileInputName, $path);
                 $filePath = '/' . $path . '/' . $filename;
-                $data->$fileInputName = $filePath;
+                $data->$fileInputName = json_encode($filePath);
                 $data->save();
             }
         }
