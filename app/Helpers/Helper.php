@@ -24,7 +24,7 @@ class Helper
         } else {
             $data = $model;
         }
-
+ 
         if ($single_id) {
             $data = $data->where('id', $single_id)->first();
             return $data;
